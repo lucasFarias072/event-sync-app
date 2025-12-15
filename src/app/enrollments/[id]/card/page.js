@@ -81,7 +81,7 @@ export default function EnrollmentCard({ params }) {
         {/* Botão Voltar */}
         <Link 
           href="/dashboard" 
-          className="inline-block mb-4 text-blue-600 hover:text-blue-800"
+          className="inline-block mb-4 text-[#4db9e5] hover:text-white"
         >
           ← Voltar ao painel
         </Link>
