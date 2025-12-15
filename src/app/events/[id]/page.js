@@ -307,7 +307,7 @@ export default function EventDetail({ params }) {
                   <button
                     onClick={handleEnroll}
                     disabled={enrolling}
-                    className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 font-medium"
+                    className="w-full bg-[rgb(0,99,99)] text-white py-3 rounded-lg hover:bg-[rgb(0,122,99)] disabled:bg-gray-400 font-medium"
                   >
                     {enrolling ? 'Inscrevendo...' : 'Inscrever-se'}
                   </button>

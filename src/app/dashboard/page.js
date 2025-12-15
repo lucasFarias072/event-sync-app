@@ -127,7 +127,7 @@ export default function Dashboard() {
             <span className="font-medium text-gray-900 bg-[#bec8cd] py-1 px-1 rounded">{user.email}</span>
           </p>
           <div className="flex gap-4">
-            <Link href="/" className="bg-[#170666] text-[#bec8cd] hover:text-white px-3 py-3 rounded-lg">
+            <Link href="/" className="bg-[#b4ae98] text-[#3b3c49] hover:text-white px-3 py-3 rounded-lg">
               Home
             </Link>
             <button onClick={signOut} className="bg-[#222] text-[rgb(220,20,60)] hover:text-red-800 px-3 py-3 rounded-lg">
