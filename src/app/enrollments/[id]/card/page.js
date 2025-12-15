@@ -76,7 +76,7 @@ export default function EnrollmentCard({ params }) {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-r from-[#3b3c49] to-[#6b7a99] py-8 px-4">
       <div className="max-w-md mx-auto">
         {/* Botão Voltar */}
         <Link 
@@ -87,7 +87,7 @@ export default function EnrollmentCard({ params }) {
         </Link>
 
         {/* Cartão Virtual */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-[#3b3c49] rounded-2xl shadow-xl overflow-hidden">
           {/* Header do Cartão */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
             <h1 className="text-2xl font-bold mb-2">Cartão de Participante</h1>
@@ -102,31 +102,41 @@ export default function EnrollmentCard({ params }) {
               <p className="text-gray-800 font-medium">
                 {enrollment.profiles?.username || enrollment.profiles?.full_name || 'Usuário'}
               </p>
-              <p className="text-sm text-gray-600">{user.email}</p>
+              <p className="text-sm text-[#b4ae98]">{user.email}</p>
             </div>
 
             {/* Informações do Evento */}
             <div className="mb-6 pb-6 border-b">
               <h2 className="text-lg font-semibold mb-2">Evento</h2>
-              <h3 className="text-gray-800 font-medium mb-1">{event?.title}</h3>
+              <h3 className="text-[#4db9e5] font-medium mb-1">{event?.title}</h3>
               <div className="space-y-1 text-sm text-gray-600">
                 <p>
-                  <span className="font-medium">Data:</span>{' '}
-                  {new Date(event?.start_date).toLocaleDateString('pt-BR', {
+                  <span className="font-medium text-[#b4ae98]">Data:</span>
+                  {' '}
+                  <span className='text-[rgb(242,242,242)]'>
+                    {new Date(event?.start_date).toLocaleDateString('pt-BR', {
                     day: '2-digit',
                     month: 'long',
                     year: 'numeric'
                   })}
+                  </span>
                 </p>
                 <p>
-                  <span className="font-medium">Horário:</span>{' '}
-                  {new Date(event?.start_date).toLocaleTimeString('pt-BR', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}
+                  <span className="font-medium text-[#b4ae98]">Horário:</span>
+                  {' '}
+                  <span className='text-[rgb(242,242,242)]'>
+                    {new Date(event?.start_date).toLocaleTimeString('pt-BR', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </span>
                 </p>
                 <p>
-                  <span className="font-medium">Local:</span> {event?.location}
+                  <span className="font-medium text-[#b4ae98]">Local:</span> 
+                  {' '}
+                  <span className='text-[rgb(242,242,242)]'>
+                      {event?.location}
+                  </span>
                 </p>
               </div>
             </div>
@@ -184,9 +194,9 @@ export default function EnrollmentCard({ params }) {
         </div>
 
         {/* Instruções */}
-        <div className="mt-6 bg-blue-50 rounded-lg p-4">
-          <h3 className="font-medium text-blue-900 mb-2">Instruções</h3>
-          <ul className="text-sm text-blue-800 space-y-1">
+        <div className="mt-6 bg-[#3b3c49] rounded-lg p-4">
+          <h3 className="font-medium mb-2 text-[rgb(242,242,242)]">Instruções</h3>
+          <ul className="text-sm space-y-1 text-[#b4ae98]">
             <li>• Guarde este cartão para apresentar no evento</li>
             <li>• O QR Code é único e válido apenas para você</li>
             <li>• Você pode acessar este cartão a qualquer momento pelo painel</li>

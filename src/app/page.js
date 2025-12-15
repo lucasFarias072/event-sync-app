@@ -10,7 +10,7 @@ import Link from 'next/link'
 function contentForAuthenticatedUser() {
     return (
         <>
-            <Link href="/dashboard" className="text-[#bec8cd] hover:text-white">Meu Painel</Link>
+            <Link href="/dashboard" className="text-[#b4ae98] hover:text-white">Meu Painel</Link>
             <Link href="/events/create" className="bg-[#4db9e5] text-white px-4 py-2 rounded-lg hover:bg-blue-700">
               Criar Evento
             </Link>
@@ -36,12 +36,12 @@ function renderEvents(events) {
             <Link 
                 key={event.id} 
                 href={`/events/${event.id}`}
-                className="bg-[#170666] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+                className="bg-[#3b3c49] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
             >
-                <div className="h-16 bg-gradient-to-r from-[#170666] to-[#1e068b]"></div>
+                <div className="h-16 bg-gradient-to-r from-[#3b3c49] to-[#6b7a99]"></div>
                 <div className="p-4">
                 <h3 className="font-bold text-lg mb-2 text-[#bec8cd]">{event.title}</h3>
-                <p className="text-[#6b7a99] text-sm mb-2 text-[#4db9e5]">{event.brief_description}</p>
+                <p className="text-[#6b7a99] text-sm mb-2 text-[#b4ae98]">{event.brief_description}</p>
                 <div className="flex justify-between items-center text-sm text-gray-500">
                     <span className='text-[#4db9e5]'>{new Date(event.start_date).toLocaleDateString('pt-BR')}</span>
                     <span className='bg-[#fff999] px-1 py-1 rounded text-[#170666]'>por {event.profiles?.username}</span>
@@ -74,12 +74,12 @@ export default function Home() {
   }
 
   return (
-        <div className="min-h-screen bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(0,99,99)]">
+        <div className="min-h-screen bg-gradient-to-r from-[#3b3c49] to-[rgb(0,99,99)]">
         
         {/* Cabeçalho */}
-        <header className="bg-gradient-to-r from-[rgb(0,99,99)] to-[rgb(33,66,99)] shadow-sm">
+        <header className="bg-[#3b3c49] shadow-sm">
             <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-[#170666]">Eventos</h1>
+                <h1 className="text-2xl font-bold text-[#b4ae98]">Eventos</h1>
             
                 {/* Duas visões p/ usuário existir ou não */}
                 <div className="flex gap-4">
@@ -92,7 +92,7 @@ export default function Home() {
         {/* Feed de Eventos */}
         <main className="max-w-7xl mx-auto px-4 py-8">
             {loading ? (
-            <p className="text-center text-gray-600">Carregando eventos...</p>
+            <p className="text-center text-[#fff999]">Carregando eventos...</p>
             ) : events.length === 0 ? (
             <p className="text-center text-gray-600">Nenhum evento publicado ainda.</p>
             ) : (

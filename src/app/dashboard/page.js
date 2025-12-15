@@ -107,7 +107,7 @@ export default function Dashboard() {
     const start = new Date(event.start_date)
     const end = new Date(event.end_date)
 
-    if (now < start) return { label: 'Próximo', color: 'text-[#bec8cd]' }
+    if (now < start) return { label: 'Em breve', color: 'text-[#bec8cd]' }
     if (now >= start && now <= end) return { label: 'Em andamento', color: 'text-green-600' }
     return { label: 'Finalizado', color: 'text-gray-600' }
   }
@@ -117,9 +117,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(0,99,99)]">
+    <div className="min-h-screen bg-gradient-to-r from-[#3b3c49] to-[rgb(0,99,99)]">
       {/* Cabeçalho */}
-      <header className="bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(0,99,99)] shadow-sm">
+      <header className="bg-[#3b3c49] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Meu Painel</h1>
           <p className="text-sm font-medium text-gray-900 bg-[#bec8cd] py-1 px-1 rounded">{user.user_metadata?.username || 'Usuário'}</p>
@@ -163,7 +163,7 @@ export default function Dashboard() {
         </div>
 
         {loading ? (
-          <p className="text-center text-gray-600">Carregando...</p>
+          <p className="text-center text-[#fff999]">Carregando...</p>
         ) : (
           <>
             {/* Aba: Meus Eventos */}
@@ -184,8 +184,8 @@ export default function Dashboard() {
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {myEvents.map(event => (
-                      <div key={event.id} className="bg-[#170666] rounded-lg shadow-md overflow-hidden">
-                        <div className="h-16 bg-gradient-to-r from-[#170666] to-[#1e068b]"></div>
+                      <div key={event.id} className="bg-[#3b3c49] rounded-lg shadow-md overflow-hidden">
+                        <div className="h-16 bg-gradient-to-r from-[#3b3c49] to-[#6b7a99]"></div>
                         <div className="p-4">
                           <div className="flex items-center gap-2 mb-2">
                             <h3 className="font-bold text-lg flex-1 text-[#bec8cd]">{event.title}</h3>
@@ -199,7 +199,7 @@ export default function Dashboard() {
                               </span>
                             )}
                           </div>
-                          <p className="text-gray-600 text-sm mb-3 text-[#4db9e5]">{event.brief_description}</p>
+                          <p className="text-sm mb-3 text-[#b4ae98]">{event.brief_description}</p>
                           <div className="flex gap-2">
                             <Link
                               href={`/events/${event.id}`}
@@ -254,7 +254,7 @@ export default function Dashboard() {
                               <div className="flex items-start justify-between mb-2">
                                 <div className="flex-1">
                                   <h3 className="font-bold text-lg">{event.title}</h3>
-                                  <p className="text-sm text-gray-600">{event.brief_description}</p>
+                                  <p className="text-sm text-[#222]">{event.brief_description}</p>
                                 </div>
                                 <div className="flex flex-col gap-1 items-end ml-4">
                                   {getStatusBadge(enrollment.status)}
@@ -264,7 +264,7 @@ export default function Dashboard() {
                                 </div>
                               </div>
 
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600 mb-3">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-[#222] mb-3">
                                 <div>
                                   <span className="font-medium">Data:</span>{' '}
                                   {new Date(event.start_date).toLocaleDateString('pt-BR')}
@@ -273,10 +273,7 @@ export default function Dashboard() {
                                   <span className="font-medium text-white bg-[#1e068b] py-1 px-1 rounded">Local:</span> 
                                   <span className='text-[#170666] bg-[#bec8cd] py-1 px-1 rounded'>{event.location}</span>
                                 </div>
-                                <div>
-                                  <span className="font-medium">Organizador:</span>{' '}
-                                  {event.profiles?.username}
-                                </div>
+                                
                                 {enrollment.checked_in && (
                                   <div className="text-green-600 font-medium">
                                     ✓ Check-in realizado
@@ -299,6 +296,9 @@ export default function Dashboard() {
                                     Ver Cartão Virtual
                                   </Link>
                                 )}
+                                <div className='px-5 rounded bg-[#4db9e5]'>
+                                  <span className="font-medium">por {event.profiles?.username}</span>
+                                </div>
                               </div>
                             </div>
                           </div>

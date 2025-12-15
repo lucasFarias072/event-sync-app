@@ -123,10 +123,10 @@ export default function EventDetail({ params }) {
   return (
     <div className="min-h-screen bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(33,33,33)]">
       {/* Header */}
-      <header className="bg-[#bec8cd] shadow-sm">
+      <header className="bg-[#3b3c49] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-[#170666] hover:text-white">← Voltar</Link>
-          {user && (<Link href="/dashboard" className="bg-[#6b7a99] text-[#bec8cd] hover:text-gray-900 py-2 px-2 rounded">Meu Painel</Link>)}
+          <Link href="/" className="text-[#4db9e5] hover:text-white">← Voltar</Link>
+          {user && (<Link href="/dashboard" className="bg-[#6b7a99] text-[rgb(242,242,242)] hover:text-white py-2 px-2 rounded">Meu Painel</Link>)}
         </div>
       </header>
 
@@ -143,11 +143,11 @@ export default function EventDetail({ params }) {
           {/* Coluna Principal */}
           <div className="lg:col-span-2 space-y-6">
             {/* Informações Básicas */}
-            <div className="bg-[#bec8cd] rounded-lg shadow-md p-6">
+            <div className="bg-[#3b3c49] rounded-lg shadow-md p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <h1 className="text-3xl font-bold mb-2">{event?.title}</h1>
-                  <p className="text-gray-600">{event?.brief_description}</p>
+                  <p className="text-[#b4ae98]">{event?.brief_description}</p>
                 </div>
                 {event?.category && (
                   <span className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
@@ -176,14 +176,14 @@ export default function EventDetail({ params }) {
               {/* Descrição Completa */}
               <div className="border-t pt-4">
                 <h2 className="text-xl font-semibold mb-3">Sobre o Evento</h2>
-                <p className="text-gray-700 whitespace-pre-wrap">
+                <p className="text-[#b4ae98] whitespace-pre-wrap">
                   {event?.full_description || event?.brief_description}
                 </p>
               </div>
             </div>
 
             {/* Organizador */}
-            <div className="bg-[#bec8cd] rounded-lg shadow-md p-6">
+            <div className="bg-[#3b3c49] rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold mb-3">Organizador</h2>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
@@ -192,12 +192,12 @@ export default function EventDetail({ params }) {
                 <div>
                   {/* <p className="font-medium">{event?.profiles?.username}</p> */}
                   {event?.profiles?.full_name && (
-                    <p className="text-sm text-gray-600">{event.profiles.full_name}</p>
+                    <p className="text-sm text-[#b4ae98]">{event.profiles.full_name}</p>
                   )}
                   {event?.profiles?.rating !== null && (
                     <div className="flex items-center gap-1 text-sm">
-                      <span className="text-yellow-500 text-lg">★</span>
-                      <span className='text-[#170666]'>{Number(event.profiles.rating).toFixed(1)}</span>
+                      <span className="text-[#fff999] text-lg">★</span>
+                      <span className='text-[#b4ae98]'>{Number(event.profiles.rating).toFixed(1)}</span>
                     </div>
                   )}
                 </div>
@@ -207,7 +207,7 @@ export default function EventDetail({ params }) {
 
           {/* Coluna Lateral - Card de Inscrição */}
           <div className="lg:col-span-1">
-            <div className="bg-[#bec8cd] rounded-lg shadow-md p-6 sticky top-4">
+            <div className="bg-[#3b3c49] rounded-lg shadow-md p-6 sticky top-4">
               <h2 className="text-xl font-semibold mb-4">Informações</h2>
               
               {/* Data e Hora */}
@@ -217,7 +217,7 @@ export default function EventDetail({ params }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                   <div>
-                    <p className="text-sm text-gray-600">Início</p>
+                    <p className="text-sm text-[#b4ae98]">Início</p>
                     <p className="font-medium">
                       {new Date(event?.start_date).toLocaleDateString('pt-BR', {
                         day: '2-digit',
@@ -235,7 +235,7 @@ export default function EventDetail({ params }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                   <div>
-                    <p className="text-sm text-gray-600">Término</p>
+                    <p className="text-sm text-[#b4ae98]">Término</p>
                     <p className="font-medium">
                       {new Date(event?.end_date).toLocaleDateString('pt-BR', {
                         day: '2-digit',
@@ -255,7 +255,7 @@ export default function EventDetail({ params }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <div>
-                    <p className="text-sm text-gray-600">Local</p>
+                    <p className="text-sm text-[#b4ae98]">Local</p>
                     <p className="font-medium">{event?.location}</p>
                   </div>
                 </div>
@@ -267,7 +267,7 @@ export default function EventDetail({ params }) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                     <div>
-                      <p className="text-sm text-gray-600">Vagas</p>
+                      <p className="text-sm text-[#b4ae98]">Vagas</p>
                       <p className="font-medium">
                         {event.capacity - (event.enrolled_count || 0)} disponíveis
                       </p>
@@ -285,12 +285,12 @@ export default function EventDetail({ params }) {
 
               {isOrganizer ? (
                 <Link href={`/events/${event?.id}/manage`} 
-                className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-medium text-center block"
+                className="w-full bg-[rgb(0,99,99)] text-white py-3 rounded-lg hover:bg-[rgb(0,122,99)] font-medium text-center block"
                 >Gerenciar Evento</Link>
               ) : enrollmentStatus === 'approved' ? (
                 <div className="text-center">
                   <div className="bg-green-50 text-green-700 py-3 rounded-lg mb-2 font-medium">✓ Você está inscrito</div>
-                  <Link href="/dashboard" className="text-sm text-blue-600 hover:text-blue-800"
+                  <Link href="/dashboard" className="text-sm text-[#4db9e5] hover:text-white"
                   >Ver minha inscrição</Link>
                 </div>
               ) : enrollmentStatus === 'pending' ? (
