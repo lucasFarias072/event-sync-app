@@ -121,21 +121,21 @@ export default function EventDetail({ params }) {
   const isFull = event?.capacity && event?.enrolled_count >= event?.capacity
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(33,33,33)]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-[#bec8cd] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-blue-600 hover:text-blue-800">← Voltar</Link>
-          {user && (<Link href="/dashboard" className="text-gray-600 hover:text-gray-900">Meu Painel</Link>)}
+          <Link href="/" className="text-[#170666] hover:text-white">← Voltar</Link>
+          {user && (<Link href="/dashboard" className="bg-[#6b7a99] text-[#bec8cd] hover:text-gray-900 py-2 px-2 rounded">Meu Painel</Link>)}
         </div>
       </header>
 
       {/* Banner */}
-      <div className="h-64 bg-gradient-to-r from-blue-500 to-purple-600 relative">
+      {/* <div className="h-64 bg-gradient-to-r from-[rgb(22,55,88)] to-[rgb(0,99,99)] relative">
         {event?.banner_url && (
           <img src={event.banner_url} alt={event.title} className="w-full h-full object-cover"/>
         )}
-      </div>
+      </div> */}
 
       {/* Conteúdo Principal */}
       <main className="max-w-7xl mx-auto px-4 py-8">
@@ -143,7 +143,7 @@ export default function EventDetail({ params }) {
           {/* Coluna Principal */}
           <div className="lg:col-span-2 space-y-6">
             {/* Informações Básicas */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-[#bec8cd] rounded-lg shadow-md p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <h1 className="text-3xl font-bold mb-2">{event?.title}</h1>
@@ -183,21 +183,21 @@ export default function EventDetail({ params }) {
             </div>
 
             {/* Organizador */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-[#bec8cd] rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold mb-3">Organizador</h2>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
                   {event?.profiles?.username?.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <p className="font-medium">{event?.profiles?.username}</p>
+                  {/* <p className="font-medium">{event?.profiles?.username}</p> */}
                   {event?.profiles?.full_name && (
                     <p className="text-sm text-gray-600">{event.profiles.full_name}</p>
                   )}
                   {event?.profiles?.rating !== null && (
                     <div className="flex items-center gap-1 text-sm">
-                      <span className="text-yellow-500">★</span>
-                      <span>{Number(event.profiles.rating).toFixed(1)}</span>
+                      <span className="text-yellow-500 text-lg">★</span>
+                      <span className='text-[#170666]'>{Number(event.profiles.rating).toFixed(1)}</span>
                     </div>
                   )}
                 </div>
@@ -207,7 +207,7 @@ export default function EventDetail({ params }) {
 
           {/* Coluna Lateral - Card de Inscrição */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
+            <div className="bg-[#bec8cd] rounded-lg shadow-md p-6 sticky top-4">
               <h2 className="text-xl font-semibold mb-4">Informações</h2>
               
               {/* Data e Hora */}

@@ -73,9 +73,9 @@ export default function CreateEvent() {
   console.log(user)
 
   return (
-    <div className="min-h-screen bg-azul-claro-900 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-r from-[rgb(0,99,99)] to-[rgb(33,33,33)] py-8 px-4">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-azul-claro-500 rounded-lg shadow-md p-6">
+        <div className="rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Criar Evento</h1>
             <Link href="/" className="text-azul-claro-100 hover:text-blue-800">

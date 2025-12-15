@@ -107,7 +107,7 @@ export default function Dashboard() {
     const start = new Date(event.start_date)
     const end = new Date(event.end_date)
 
-    if (now < start) return { label: 'Próximo', color: 'text-blue-600' }
+    if (now < start) return { label: 'Próximo', color: 'text-[#bec8cd]' }
     if (now >= start && now <= end) return { label: 'Em andamento', color: 'text-green-600' }
     return { label: 'Finalizado', color: 'text-gray-600' }
   }
@@ -117,20 +117,20 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(0,99,99)]">
       {/* Cabeçalho */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(0,99,99)] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Meu Painel</h1>
-          <p className="text-sm font-medium text-gray-900">{user.user_metadata?.username || 'Usuário'}</p>
+          <p className="text-sm font-medium text-gray-900 bg-[#bec8cd] py-1 px-1 rounded">{user.user_metadata?.username || 'Usuário'}</p>
           <p className="text-sm text-gray-600">
-            <span className="font-medium text-gray-900">{user.email}</span>
+            <span className="font-medium text-gray-900 bg-[#bec8cd] py-1 px-1 rounded">{user.email}</span>
           </p>
           <div className="flex gap-4">
-            <Link href="/" className="text-gray-600 hover:text-gray-900">
+            <Link href="/" className="bg-[#170666] text-[#bec8cd] hover:text-white px-3 py-3 rounded-lg">
               Home
             </Link>
-            <button onClick={signOut} className="text-red-600 hover:text-red-800">
+            <button onClick={signOut} className="bg-[#222] text-[rgb(220,20,60)] hover:text-red-800 px-3 py-3 rounded-lg">
               Sair
             </button>
           </div>
@@ -144,8 +144,8 @@ export default function Dashboard() {
             onClick={() => setActiveTab('events')}
             className={`pb-2 px-4 font-medium ${
               activeTab === 'events'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-b-3 border-[#fff999] text-[#bec8cd]'
+                : 'text-[#fff999] hover:text-gray-900'
             }`}
           >
             Meus Eventos ({myEvents.length})
@@ -154,8 +154,8 @@ export default function Dashboard() {
             onClick={() => setActiveTab('enrollments')}
             className={`pb-2 px-4 font-medium ${
               activeTab === 'enrollments'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-b-3 border-[#fff999] text-[#bec8cd]'
+                : 'text-[#fff999] hover:text-gray-900'
             }`}
           >
             Suas Inscrições ({myEnrollments.length})
@@ -173,7 +173,7 @@ export default function Dashboard() {
                   <h2 className="text-xl font-bold">Meus Eventos</h2>
                   <Link
                     href="/events/create"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                    className="bg-[#4db9e5] text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                   >
                     + Criar Evento
                   </Link>
@@ -184,11 +184,11 @@ export default function Dashboard() {
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {myEvents.map(event => (
-                      <div key={event.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div className="h-32 bg-gradient-to-r from-blue-500 to-purple-600" />
+                      <div key={event.id} className="bg-[#170666] rounded-lg shadow-md overflow-hidden">
+                        <div className="h-16 bg-gradient-to-r from-[#170666] to-[#1e068b]"></div>
                         <div className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-bold text-lg flex-1">{event.title}</h3>
+                            <h3 className="font-bold text-lg flex-1 text-[#bec8cd]">{event.title}</h3>
                             {event.is_published ? (
                               <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
                                 Publicado
@@ -199,11 +199,11 @@ export default function Dashboard() {
                               </span>
                             )}
                           </div>
-                          <p className="text-gray-600 text-sm mb-3">{event.brief_description}</p>
+                          <p className="text-gray-600 text-sm mb-3 text-[#4db9e5]">{event.brief_description}</p>
                           <div className="flex gap-2">
                             <Link
                               href={`/events/${event.id}`}
-                              className="text-sm text-blue-600 hover:text-blue-800"
+                              className="bg-[#1e068b] px-3 py-3 rounded-lg text-sm text-[#bec8cd] hover:text-white"
                             >
                               Ver
                             </Link>
@@ -217,7 +217,7 @@ export default function Dashboard() {
                             )}
                             <button
                               onClick={() => handleDelete(event.id)}
-                              className="text-sm text-red-600 hover:text-red-800"
+                              className="bg-[#222] text-sm text-[rgb(220,20,60)] hover:text-red-800 py-3 px-3 rounded-lg"
                             >
                               Deletar
                             </button>
@@ -244,10 +244,10 @@ export default function Dashboard() {
                       const status = getEventStatus(event)
                       
                       return (
-                        <div key={enrollment.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div key={enrollment.id} className="bg-[#6b7a99] rounded-lg shadow-md overflow-hidden">
                           <div className="flex flex-col md:flex-row">
                             {/* Banner do Evento */}
-                            <div className="w-full md:w-48 h-32 md:h-auto bg-gradient-to-r from-blue-500 to-purple-600" />
+                            <div className="w-full md:w-16 h-32 md:h-auto bg-gradient-to-r from-[#6b7a99] to-[#bec8cd]" />
                             
                             {/* Informações */}
                             <div className="flex-1 p-4">
@@ -269,8 +269,9 @@ export default function Dashboard() {
                                   <span className="font-medium">Data:</span>{' '}
                                   {new Date(event.start_date).toLocaleDateString('pt-BR')}
                                 </div>
-                                <div>
-                                  <span className="font-medium">Local:</span> {event.location}
+                                <div className='flex items-start gap-2 mb-2'>
+                                  <span className="font-medium text-white bg-[#1e068b] py-1 px-1 rounded">Local:</span> 
+                                  <span className='text-[#170666] bg-[#bec8cd] py-1 px-1 rounded'>{event.location}</span>
                                 </div>
                                 <div>
                                   <span className="font-medium">Organizador:</span>{' '}
@@ -286,14 +287,14 @@ export default function Dashboard() {
                               <div className="flex gap-2">
                                 <Link
                                   href={`/events/${event.id}`}
-                                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                  className="text-sm text-[#bec8cd] hover:text-white font-medium bg-[#170666] rounded px-1 py-1"
                                 >
                                   Ver Evento
                                 </Link>
                                 {enrollment.status === 'approved' && !enrollment.checked_in && (
                                   <Link
                                     href={`/enrollments/${enrollment.id}/card`}
-                                    className="text-sm text-purple-600 hover:text-purple-800 font-medium"
+                                    className="bg-[#bec8cd] text-sm text-[#170666] hover:text-white font-medium px-1 py-1 rounded"
                                   >
                                     Ver Cartão Virtual
                                   </Link>

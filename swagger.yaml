@@ -1,0 +1,571 @@
+openapi: 3.0.3
+info:
+  title: EventSync API
+  description: API para gerenciamento de eventos, inscrições e check-in
+  version: 1.0.0
+  contact:
+    name: EventSync Team
+
+servers:
+  - url: http://localhost:3000/api
+    description: Servidor de Desenvolvimento
+
+tags:
+  - name: Events
+    description: Operações relacionadas a eventos
+  - name: Enrollments
+    description: Operações relacionadas a inscrições
+
+paths:
+  /events:
+    get:
+      tags:
+        - Events
+      summary: Listar todos os eventos publicados
+      description: Retorna uma lista de todos os eventos que estão publicados
+      responses:
+        '200':
+          description: Lista de eventos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      tags:
+        - Events
+      summary: Criar novo evento
+      description: Cria um novo evento. Requer autenticação.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreate'
+      responses:
+        '201':
+          description: Evento criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/{id}:
+    get:
+      tags:
+        - Events
+      summary: Buscar evento por ID
+      description: Retorna os detalhes de um evento específico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID do evento
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Evento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventDetail'
+        '404':
+          description: Evento não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Events
+      summary: Atualizar evento
+      description: Atualiza um evento existente. Apenas o organizador pode atualizar.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID do evento
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdate'
+      responses:
+        '200':
+          description: Evento atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Evento não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - Events
+      summary: Deletar evento
+      description: Deleta um evento. Apenas o organizador pode deletar.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID do evento
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Evento deletado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Evento deletado com sucesso
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Evento não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/{id}/enroll:
+    post:
+      tags:
+        - Events
+      summary: Inscrever-se em um evento
+      description: Realiza inscrição do usuário autenticado em um evento
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID do evento
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '201':
+          description: Inscrição realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enrollment'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Erro na validação (já inscrito, evento lotado, etc)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/organizer/{id}:
+    get:
+      tags:
+        - Events
+      summary: Buscar eventos de um organizador
+      description: Retorna todos os eventos criados por um organizador específico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID do organizador
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Lista de eventos do organizador
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '500':
+          description: Erro interno
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /enrollments/my-enrollments:
+    get:
+      tags:
+        - Enrollments
+      summary: Buscar inscrições do usuário logado
+      description: Retorna todas as inscrições do usuário autenticado
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de inscrições
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnrollmentWithEvent'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /enrollments/check/{eventId}:
+    get:
+      tags:
+        - Enrollments
+      summary: Verificar status de inscrição
+      description: Verifica se o usuário autenticado está inscrito em um evento
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          description: UUID do evento
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Status da inscrição
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enrolled:
+                    type: boolean
+                    description: Se está inscrito ou não
+                  status:
+                    type: string
+                    enum: [pending, approved, rejected, cancelled]
+                    description: Status da inscrição (se inscrito)
+
+  /enrollments/{id}:
+    get:
+      tags:
+        - Enrollments
+      summary: Buscar inscrição por ID
+      description: Retorna detalhes de uma inscrição específica
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID da inscrição
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Inscrição encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentWithEvent'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Inscrição não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /enrollments/{id}/checkin:
+    post:
+      tags:
+        - Enrollments
+      summary: Registrar check-in
+      description: Registra o check-in de uma inscrição. Apenas o organizador do evento pode fazer check-in.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: UUID da inscrição
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Check-in realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enrollment'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '400':
+          description: Check-in inválido (já realizado, status não aprovado, etc)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token de autenticação do Supabase
+
+  schemas:
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        organizer_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        brief_description:
+          type: string
+        full_description:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        capacity:
+          type: integer
+          nullable: true
+        requires_approval:
+          type: boolean
+        is_published:
+          type: boolean
+        status:
+          type: string
+          enum: [open, closed, in_progress]
+        banner_url:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        profiles:
+          type: object
+          properties:
+            username:
+              type: string
+            rating:
+              type: number
+              format: float
+
+    EventDetail:
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          properties:
+            profiles:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                username:
+                  type: string
+                full_name:
+                  type: string
+                rating:
+                  type: number
+                  format: float
+
+    EventCreate:
+      type: object
+      required:
+        - title
+        - start_date
+        - end_date
+      properties:
+        title:
+          type: string
+          example: Conferência de Tecnologia 2025
+        brief_description:
+          type: string
+          maxLength: 100
+          example: O maior evento de tech do Brasil
+        full_description:
+          type: string
+          example: Detalhes completos sobre o evento...
+        category:
+          type: string
+          example: Tecnologia
+        location:
+          type: string
+          example: São Paulo - SP
+        start_date:
+          type: string
+          format: date-time
+          example: 2025-06-15T09:00:00Z
+        end_date:
+          type: string
+          format: date-time
+          example: 2025-06-15T18:00:00Z
+        capacity:
+          type: integer
+          nullable: true
+          example: 500
+        requires_approval:
+          type: boolean
+          example: false
+
+    EventUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        brief_description:
+          type: string
+        full_description:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+        capacity:
+          type: integer
+        requires_approval:
+          type: boolean
+        is_published:
+          type: boolean
+        status:
+          type: string
+          enum: [open, closed, in_progress]
+
+    Enrollment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        event_id:
+          type: string
+          format: uuid
+        participant_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending, approved, rejected, cancelled]
+        checked_in:
+          type: boolean
+        checked_in_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+
+    EnrollmentWithEvent:
+      allOf:
+        - $ref: '#/components/schemas/Enrollment'
+        - type: object
+          properties:
+            events:
+              $ref: '#/components/schemas/EventDetail'
+            profiles:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                username:
+                  type: string
+                full_name:
+                  type: string
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Mensagem de erro descritiva

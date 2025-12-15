@@ -10,8 +10,8 @@ import Link from 'next/link'
 function contentForAuthenticatedUser() {
     return (
         <>
-            <Link href="/dashboard" className="text-blue-600 hover:text-blue-800">Meu Painel</Link>
-            <Link href="/events/create" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Link href="/dashboard" className="text-[#bec8cd] hover:text-white">Meu Painel</Link>
+            <Link href="/events/create" className="bg-[#4db9e5] text-white px-4 py-2 rounded-lg hover:bg-blue-700">
               Criar Evento
             </Link>
         </>
@@ -21,8 +21,8 @@ function contentForAuthenticatedUser() {
 function contentForUnauthenticatedUser() {
     return (
         <>
-            <Link href="/login" className="text-gray-600 hover:text-gray-900">Entrar</Link>
-            <Link href="/register" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <Link href="/login" className="bg-[#bec8cd] text-gray-600 hover:text-gray-900 py-3 px-3 rounded-md">Entrar</Link>
+            <Link href="/register" className="bg-[#4db9e5] text-white px-4 py-2 rounded-lg hover:bg-[#6b7a99]">
               Cadastrar
             </Link>
         </>
@@ -36,15 +36,15 @@ function renderEvents(events) {
             <Link 
                 key={event.id} 
                 href={`/events/${event.id}`}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+                className="bg-[#170666] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
             >
-                <div className="h-48 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                <div className="h-16 bg-gradient-to-r from-[#170666] to-[#1e068b]"></div>
                 <div className="p-4">
-                <h3 className="font-bold text-lg mb-2">{event.title}</h3>
-                <p className="text-gray-600 text-sm mb-2">{event.brief_description}</p>
+                <h3 className="font-bold text-lg mb-2 text-[#bec8cd]">{event.title}</h3>
+                <p className="text-[#6b7a99] text-sm mb-2 text-[#4db9e5]">{event.brief_description}</p>
                 <div className="flex justify-between items-center text-sm text-gray-500">
-                    <span>{new Date(event.start_date).toLocaleDateString('pt-BR')}</span>
-                    <span>por {event.profiles?.username}</span>
+                    <span className='text-[#4db9e5]'>{new Date(event.start_date).toLocaleDateString('pt-BR')}</span>
+                    <span className='bg-[#fff999] px-1 py-1 rounded text-[#170666]'>por {event.profiles?.username}</span>
                 </div>
                 </div>
             </Link>
@@ -74,12 +74,12 @@ export default function Home() {
   }
 
   return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gradient-to-r from-[rgb(33,66,99)] to-[rgb(0,99,99)]">
         
         {/* Cabeçalho */}
-        <header className="bg-white shadow-sm">
+        <header className="bg-gradient-to-r from-[rgb(0,99,99)] to-[rgb(33,66,99)] shadow-sm">
             <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-gray-900">Eventos</h1>
+                <h1 className="text-2xl font-bold text-[#170666]">Eventos</h1>
             
                 {/* Duas visões p/ usuário existir ou não */}
                 <div className="flex gap-4">
